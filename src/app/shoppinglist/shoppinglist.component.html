@@ -1,0 +1,43 @@
+<div *ngIf="listService.listitem.length !=0" class="container">
+  <tr *ngFor="let p of listService.listitem">
+        <mat-card style="margin-top: 2%;" >
+          <mat-card-content>
+            {{p}}
+            <button mat-button (click)="onEdit(p)" >
+              <mat-icon class = "md-icon-button material-icons">edit</mat-icon>
+            </button>
+            <button mat-button style="padding-right:5%" (click)="onDelete(p)" >
+              <mat-icon class = "md-icon-button material-icons">delete</mat-icon>
+            </button>
+          </mat-card-content>
+        </mat-card>
+  </tr>
+
+
+</div>
+<div class="form">
+<mat-card class="my-card">
+  <mat-card-content>
+    <form class="my-form"  [formGroup]="itemForm">
+      <mat-form-field class="full-width">
+        <mat-label>Add Item</mat-label>
+        <input  matInput
+                placeholder="Add Item"
+                formControlName="itemName">
+      </mat-form-field>
+      <div class="alert running-alert"
+           *ngIf=" itemForm.get('itemName').errors && itemForm.get('itemName').touched">
+        Age is required and should less than 3 characters.
+      </div>
+      <mat-card-actions>
+        <button *ngIf="!btnVisisbility"
+                mat-raised-button
+                color="primary" [disabled]="itemForm.invalid" (click)="onAdd()">Add</button>
+        <button *ngIf="btnVisisbility"
+                mat-raised-button
+                color="primary" (click)="onUpdate()">Edit</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>
+</div>
